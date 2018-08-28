@@ -27,7 +27,7 @@ ThreadPool::ThreadPool(size_t numThreads)
         : stop(false),
           numThreads(numThreads) {
     for(size_t i(0); i < numThreads; ++i) {
-        workers.push_back(std::thread(Worker(*this)));
+        workers.emplace_back(Worker(*this));
     }
 }
 
@@ -35,9 +35,9 @@ ThreadPool::~ThreadPool() {
     stop = true;
     condition.notify_all();
 
-    for (size_t i = 0; i < workers.size(); ++i) {
-        if (workers[i].joinable()) {
-            workers[i].join();
+    for (size_t i = 0; i < threads.size(); ++i) {
+        if (threads[i].joinable()) {
+            threads[i].join();
         }
     }
 }
@@ -46,23 +46,23 @@ void ThreadPool::join() {
     stop = true;
     condition.notify_all();
 
-    for(size_t i = 0;i<workers.size();++i) {
-        if (workers[i].joinable()) {
-            workers[i].join();
+    for (size_t i = 0; i < threads.size(); ++i) {
+        if (threads[i].joinable()) {
+            threads[i].join();
         }
     }
 
-    workers.clear();
+    threads.clear();
     stop = false;
     for(size_t i(0); i < numThreads; ++i) {
-        workers.push_back(std::thread(Worker(*this)));
+        threads.emplace_back(Worker(*this));
     }
 }
 
 void ThreadPool::post(std::function<void()> f) {
     {
         std::unique_lock<std::mutex> lock(queueMutex);
-        tasks.push_back(std::function<void()>(f));
+        tasks.emplace_back(f);
     }
     condition.notify_one();
 }
