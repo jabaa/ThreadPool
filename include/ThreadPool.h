@@ -3,10 +3,10 @@
 #include <condition_variable>
 #include <vector>
 #include <deque>
+#include <functional>
 
 class ThreadPool;
 
-// our worker thread objects
 class Worker {
 public:
     Worker(ThreadPool &s) : pool(s) { }
@@ -18,14 +18,14 @@ private:
 // the actual thread pool
 class ThreadPool {
 public:
-    ThreadPool(size_t);
+    ThreadPool(size_t numThreads);
     void post(std::function<void()> f);
     void join();
     ~ThreadPool();
 private:
     friend class Worker;
 
-    std::vector<std::thread> workers;
+    std::vector<std::thread> threads;
     std::deque<std::function<void()>> tasks;
     std::mutex queueMutex;
     std::condition_variable condition;
