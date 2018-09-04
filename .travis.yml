@@ -1,5 +1,5 @@
 language: C++
-script: cmake3 -D BUILD_EXAMPLES=True . && make
+script: cmake -D BUILD_EXAMPLES=True . && make
 compiler:
   - clang
   - gcc
