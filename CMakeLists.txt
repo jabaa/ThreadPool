@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(BUILD_EXAMPLES False CACHE BOOL "Build examples")
 
 include_directories(include)
-add_library(ThreadPool SHARED src/ThreadPool.cpp include/ThreadPool.h)
+add_library(ThreadPool src/ThreadPool.cpp include/ThreadPool.h)
 
 if (BUILD_EXAMPLES)
     find_package(Threads REQUIRED)
