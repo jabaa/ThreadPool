@@ -8,6 +8,7 @@ addons:
     - python3-pip
 install:
   - sudo pip3 install --upgrade pip
+  - sudo pip3 install --upgrade setuptools
   - pip3 install --user conan
   - conan remote add $CONAN_REMOTE_USERNAME $CONAN_REMOTE_URL
 script: 
