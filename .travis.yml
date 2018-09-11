@@ -1,13 +1,14 @@
 language: C++
 addons:
   apt:
+    update: true
     packages:
     - cmake
     - python3
     - python3-pip
 install:
   - sudo pip3 install --upgrade pip
-  - pip3 install conan
+  - pip3 install --user conan
   - conan remote add $CONAN_REMOTE_USERNAME $CONAN_REMOTE_URL
 script: 
   - conan create . jabaa/stable -tf .
