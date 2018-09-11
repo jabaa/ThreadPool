@@ -1,8 +1,10 @@
 language: C++
+addons:
+  apt:
+    packages:
+    - cmake
+    - python3
 install:
-  - sudo apt-get update
-  - apt-cache search python
-  - sudo apt-get install -qq python3.6
   - pip3 install --upgrade pip
   - pip3 install conan
   - conan remote add $CONAN_REMOTE_USERNAME $CONAN_REMOTE_URL
