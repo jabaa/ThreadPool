@@ -1,6 +1,11 @@
+dist: trusty
+sudo: false
+
 language: C++
 env:
   - VERSION=0.1
+  - SHARED=True
+  - SHARED=False
 addons:
   apt:
     update: true
@@ -9,14 +14,13 @@ addons:
     - python3
     - python3-pip
 install:
-  - sudo pip3 install --upgrade pip
-  - sudo pip3 install --upgrade setuptools
+  - pip3 install --user pip
+  - pip3 install --user setuptools
   - pip3 install --user conan
-  - conan remote add $CONAN_REMOTE_USERNAME $CONAN_REMOTE_URL
-  - conan user -r $CONAN_REMOTE_USERNAME -p $CONAN_REMOTE_PASSWORD $CONAN_REMOTE_USERNAME
-script: 
-  - conan create . jabaa/stable -tf . && conan upload -r $CONAN_REMOTE_USERNAME --all ThreadPool/$VERSION@$CONAN_REMOTE_USERNAME/stable
-  - conan create . jabaa/stable -tf . -o shared=False && conan upload -r $CONAN_REMOTE_USERNAME --all ThreadPool/$VERSION@$CONAN_REMOTE_USERNAME/stable
+  - conan remote add $CONAN_REMOTE_NAME $CONAN_REMOTE_URL
+  - conan user -r $CONAN_REMOTE_NAME -p $CONAN_REMOTE_PASSWORD $CONAN_REMOTE_USERNAME
+script:
+  - conan create . jabaa/stable -tf . -o shared=$SHARED && conan upload -r $CONAN_REMOTE_USERNAME --all ThreadPool/$VERSION@$CONAN_REMOTE_USERNAME/stable
 compiler:
   - clang
   - gcc
