@@ -3,9 +3,11 @@ sudo: false
 
 language: C++
 env:
-  - VERSION=0.1
-  - SHARED=True
-  - SHARED=False
+  global:
+    - VERSION=0.1
+  matrix:
+    - SHARED=True
+    - SHARED=False
 addons:
   apt:
     update: true
