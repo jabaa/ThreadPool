@@ -1,5 +1,10 @@
 language: C++
-script: cmake -D BUILD_EXAMPLES=True . && make
+install:
+  - pip install conan
+  - conan remote add $CONAN_REMOTE_USERNAME $CONAN_REMOTE_URL
+script: 
+  - conan create . jabaa/stable -tf .
+  - conan create . jabaa/stable -tf . -o shared=False
 compiler:
   - clang
   - gcc
