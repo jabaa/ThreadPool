@@ -6,8 +6,8 @@ addons:
     - python3
     - python3-pip
 install:
-  - pip3 install --upgrade pip
-  - pip3 install conan
+  - sudo pip3 install --upgrade pip
+  - sudo pip3 install conan
   - conan remote add $CONAN_REMOTE_USERNAME $CONAN_REMOTE_URL
 script: 
   - conan create . jabaa/stable -tf .
