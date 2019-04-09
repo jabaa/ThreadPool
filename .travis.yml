@@ -22,7 +22,7 @@ install:
   - conan remote add $CONAN_REMOTE_NAME $CONAN_REMOTE_URL
   - conan user -r $CONAN_REMOTE_NAME -p $CONAN_REMOTE_PASSWORD $CONAN_REMOTE_USERNAME
 script:
-  - conan create . jabaa/stable -tf . -o shared=$SHARED && conan upload -r $CONAN_REMOTE_USERNAME --all ThreadPool/$VERSION@$CONAN_REMOTE_USERNAME/stable
+  - conan create . jabaa/stable -o shared=$SHARED && conan upload -r $CONAN_REMOTE_USERNAME --all ThreadPool/$VERSION@$CONAN_REMOTE_USERNAME/stable
 compiler:
   - clang
   - gcc
