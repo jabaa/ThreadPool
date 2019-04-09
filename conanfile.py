@@ -30,7 +30,4 @@ class ThreadpoolConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["ThreadPool"]
-
-    def test(self):
-        self.run(".{}example1".format(os.sep))
-        
+ 
